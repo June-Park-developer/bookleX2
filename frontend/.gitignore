@@ -1,0 +1,17 @@
+# Dependency directory
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# Build directory
+dist/
+build/
+
+# Next.js specific
+.next/
+
+# IDE files
+.vscode/
+.idea/
