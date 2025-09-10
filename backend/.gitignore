@@ -5,6 +5,8 @@ node_modules/
 .env
 .env.development
 .env.production
+.env.test
+.env.*
 
 # TypeScript compilation outputs
 dist/

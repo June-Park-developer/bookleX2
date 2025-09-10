@@ -1,0 +1,55 @@
+name: Test
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres: # 테스트용 임시 데이터베이스
+        image: postgres:15
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        ports:
+          - 5432:5432
+        options: >- # DB가 준비될 때까지 기다리는 설정 (헬스 체크)
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: ./backend
+
+      - name: Install Jest and wait-for-db
+        run: npm install jest pg
+        working-directory: ./backend
+
+      - name: Run TypeORM migrations
+        run: npm run typeorm migration:run
+        working-directory: ./backend
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb
+          # 정은 TO-DO : env 추가되면 또 추가해야 함~ 아예 전역으로 옮기지뭐.
+
+      - name: Run tests
+        run: npm run test:e2e # 또는 npm run test
+        working-directory: ./backend
+        env:
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb

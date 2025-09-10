@@ -1,0 +1,18 @@
+services:
+  backend:
+    image: ${{ secrets.DOCKERHUB_USERNAME }}/booklebookle-server:latest
+    container_name: backend-prod
+    restart: always
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env.production
+
+  frontend:
+    image: ${{ secrets.DOCKERHUB_USERNAME }}/booklebookle-front:latest
+    container_name: frontend-prod
+    restart: always
+    ports:
+      - "80:3000"
+    env_file:
+      - ./frontend/.env.production

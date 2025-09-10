@@ -1,0 +1,11 @@
+# 개발용 DockerFile
+# 소스코드는 docker-compose.dev.yml 에서 volumes 로 해결
+ARG NODE_VERSION=20.13.1
+FROM node:${NODE_VERSION} AS builder
+
+
+WORKDIR /usr/src/app
+COPY package*.json ./
+RUN npm install
+
+CMD ["npm", "run", "start:dev"]

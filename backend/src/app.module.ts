@@ -11,7 +11,16 @@ import { FollowsModule } from './follows/follows.module';
 import { LikesModule } from './likes/likes.module';
 
 @Module({
-  imports: [UsersModule, ThreadsModule, BooksModule, PostsModule, CommentModule, AdminSettingsModule, FollowsModule, LikesModule],
+  imports: [
+    UsersModule,
+    ThreadsModule,
+    BooksModule,
+    PostsModule,
+    CommentModule,
+    AdminSettingsModule,
+    FollowsModule,
+    LikesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
