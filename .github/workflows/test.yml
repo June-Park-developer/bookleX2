@@ -37,13 +37,6 @@ jobs:
         run: npm ci
         working-directory: ./backend
 
-      - name: Run TypeORM migrations
-        run: npx typeorm migration:run
-        working-directory: ./backend
-        env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb
-          # 정은 TO-DO : env 추가되면 또 추가해야 함~ 아예 전역으로 옮기지뭐.
-
       - name: Run tests
         run: npm run test:e2e # 또는 npm run test
         working-directory: ./backend
