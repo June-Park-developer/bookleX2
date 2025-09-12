@@ -37,12 +37,8 @@ jobs:
         run: npm ci
         working-directory: ./backend
 
-      - name: Install Jest and wait-for-db
-        run: npm install jest pg
-        working-directory: ./backend
-
       - name: Run TypeORM migrations
-        run: npm run typeorm migration:run
+        run: npx typeorm migration:run
         working-directory: ./backend
         env:
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/testdb
