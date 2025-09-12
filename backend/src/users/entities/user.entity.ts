@@ -22,7 +22,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ unique: true }) // 이메일은 중복될 수 없음
+  @Column({ unique: true })
   email: string;
 
   @Column()
@@ -38,18 +38,16 @@ export class User {
   updatedAt: Date;
 
   @DeleteDateColumn()
-  deletedAt?: Date;
+  deletedAt: Date;
 
   // Relations
 
   // UserConfig (1:1)
   @OneToOne(() => UserConfig, (config) => config.user)
-  @JoinColumn()
   config: UserConfig;
 
   // Profile (1:1)
   @OneToOne(() => Profile, (profile) => profile.user)
-  @JoinColumn()
   profile: Profile;
 
   // Threads (1:N)
